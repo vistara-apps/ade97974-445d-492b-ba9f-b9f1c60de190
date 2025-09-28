@@ -1,0 +1,30 @@
+{
+  "accountAssociation": {
+    "header": "",
+    "payload": "",
+    "signature": ""
+  },
+  "frame": {
+    "version": "1",
+    "name": "LetterCraft",
+    "subtitle": "Built with Zara",
+    "description": "LetterCraft is a Base Mini App built with Zara.",
+    "iconUrl": "https://0co.to/images/zara-2.png",
+    "homeUrl": "https://ade97974445d492bba9fb9f1c60de190-mnmh.vercel.app",
+    "splashImageUrl": "https://ade97974445d492bba9fb9f1c60de190-mnmh.vercel.app/splash.png",
+    "splashBackgroundColor": "#000000",
+    "heroImageUrl": "https://ade97974445d492bba9fb9f1c60de190-mnmh.vercel.app/image.png",
+    "tagline": "LetterCraft",
+    "screenshotUrls": [
+      "https://ade97974445d492bba9fb9f1c60de190-mnmh.vercel.app/screenshot.png",
+      "https://ade97974445d492bba9fb9f1c60de190-mnmh.vercel.app/screenshot.png"
+    ],
+    "primaryCategory": "social",
+    "tags": [
+      "base",
+      "miniapp",
+      "onchainkit"
+    ],
+    "webhookUrl": "https://ade97974445d492bba9fb9f1c60de190-mnmh.vercel.app/api/webhook"
+  }
+}
