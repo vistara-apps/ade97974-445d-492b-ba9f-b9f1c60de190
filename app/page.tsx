@@ -20,7 +20,7 @@ import {
   downloadImage, 
   shareToFarcaster 
 } from '@/lib/utils';
-import { Save, Shuffle, Sliders, Eye, EyeOff } from 'lucide-react';
+import { Save, Shuffle, Sliders, Eye, EyeOff, Crown, Zap } from 'lucide-react';
 
 export default function HomePage() {
   const [text, setText] = useState('HELLO');
@@ -30,8 +30,14 @@ export default function HomePage() {
   const [generatedImage, setGeneratedImage] = useState<string>('');
   const [showPreview, setShowPreview] = useState(true);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
+  const [availableFeatures, setAvailableFeatures] = useState({
+    basic: [],
+    premium: [],
+    hasPremium: false
+  });
 
-  // Initialize with some default presets
+  // Initialize with some default presets and check premium status
   useEffect(() => {
     const defaultPresets: Preset[] = Object.entries(PRESET_TRANSFORMATIONS).map(([name, transform], index) => ({
       presetId: `preset-${index}`,
@@ -41,6 +47,17 @@ export default function HomePage() {
       createdAt: new Date(),
     }));
     setPresets(defaultPresets);
+
+    // Check premium status (mock for demo)
+    const checkPremium = async () => {
+      const premium = await hasPremiumAccess('demo-user');
+      setIsPremium(premium);
+
+      const features = await getAvailableFeatures('demo-user');
+      setAvailableFeatures(features);
+    };
+
+    checkPremium();
   }, []);
 
   const handleGenerate = async () => {
@@ -299,7 +316,7 @@ export default function HomePage() {
               <h3 className="font-medium text-fg">Enter Text</h3>
               <p className="text-sm text-gray-400">Type any word or phrase you want to stylize</p>
             </div>
-            
+
             <div className="text-center space-y-2">
               <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto">
                 <span className="text-white font-bold">2</span>
@@ -307,7 +324,7 @@ export default function HomePage() {
               <h3 className="font-medium text-fg">Generate Style</h3>
               <p className="text-sm text-gray-400">Click generate or use presets to create unique styles</p>
             </div>
-            
+
             <div className="text-center space-y-2">
               <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center mx-auto">
                 <span className="text-white font-bold">3</span>
@@ -317,6 +334,39 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+
+        {/* Premium Features */}
+        {!isPremium && (
+          <div className="glass-card p-6 border-2 border-accent/50">
+            <div className="flex items-center space-x-3 mb-4">
+              <Crown className="w-6 h-6 text-accent" />
+              <h2 className="text-xl font-semibold text-fg">Unlock Premium Features</h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div className="space-y-2">
+                <h3 className="font-medium text-fg flex items-center space-x-2">
+                  <Zap className="w-4 h-4 text-accent" />
+                  <span>Advanced Colors & Effects</span>
+                </h3>
+                <p className="text-sm text-gray-400">Access exclusive color palettes and premium animations</p>
+              </div>
+
+              <div className="space-y-2">
+                <h3 className="font-medium text-fg flex items-center space-x-2">
+                  <Shuffle className="w-4 h-4 text-accent" />
+                  <span>Unlimited Generation</span>
+                </h3>
+                <p className="text-sm text-gray-400">Remove daily limits and generate as much as you want</p>
+              </div>
+            </div>
+
+            <button className="btn-primary w-full flex items-center justify-center space-x-2">
+              <Crown className="w-4 h-4" />
+              <span>Upgrade to Premium - $0.99/month</span>
+            </button>
+          </div>
+        )}
       </div>
     </AppShell>
   );
